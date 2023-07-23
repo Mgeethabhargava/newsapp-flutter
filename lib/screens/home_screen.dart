@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       name = data["articles"][randomNumber]["title"];
                       description =
                           data["articles"][randomNumber]["description"];
-                      author = data["articles"][randomNumber]["author"];
+                      author = data["articles"][randomNumber]["source"]["name"];
                       urlToImage = data["articles"][randomNumber]["urlToImage"];
                       content = data["articles"][randomNumber]["content"];
                       publishedAt =
