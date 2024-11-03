@@ -3,8 +3,8 @@ import "package:flutter/material.dart";
 
 // ignore: must_be_immutable
 class ThirdScreen extends StatefulWidget {
-  // ignore: prefer_typing_uninitialized_variables
-  var data;
+  final Map<String, dynamic> data;
+
   ThirdScreen({super.key, required this.data});
 
   @override
@@ -12,79 +12,84 @@ class ThirdScreen extends StatefulWidget {
 }
 
 class ThirdScreenState extends State<ThirdScreen> {
-  final String description = "";
   @override
   Widget build(BuildContext context) {
-    print(widget.data);
+    final data = widget.data;
+    final imageUrl = data["urlToImage"] as String?;
+    final title = data["title"] ?? "No Title Available";
+    final description = data["description"] ?? "No Description Available";
+    final content = data["content"] ?? "No Content Available";
+    final publishedAt = data["publishedAt"] ?? "No Date Available";
+
     return SafeArea(
-        child: Scaffold(
-            appBar: AppBar(
-              title: const Text(
-                "NEWS",
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            body: Column(children: [
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "NEWS",
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: widget.data["urlToImage"] == null
+                child: imageUrl == null || imageUrl.isEmpty
                     ? const Image(
                         image:
-                            AssetImage('asset/images/no_image_available.jpg'),
+                            AssetImage('assets/images/no_image_available.jpg'),
                         height: 350.0,
-                        width: 350.0)
-                    : widget.data["urlToImage"] == ""
-                        ? const Image(
+                        width: 350.0,
+                      )
+                    : Image.network(
+                        imageUrl,
+                        height: 350.0,
+                        width: 350.0,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Image(
                             image: AssetImage(
-                                'asset/images/no_image_available.jpg'),
-                            height: 350.0,
-                            width: 350.0)
-                        : Image.network(
-                            widget.data["urlToImage"].toString(),
+                                'assets/images/no_image_available.jpg'),
                             height: 350.0,
                             width: 350.0,
-                          ),
+                          );
+                        },
+                      ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  widget.data["title"],
+                  title,
                   style: const TextStyle(fontSize: 20),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: widget.data["description"] == null
-                    ? Text(
-                        "",
-                        style: const TextStyle(fontSize: 15),
-                      )
-                    : Text(
-                        widget.data["description"],
-                        style: const TextStyle(fontSize: 15),
-                      ),
+                child: Text(
+                  description,
+                  style: const TextStyle(fontSize: 15),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: widget.data["content"] == null
-                    ? Text(
-                        "",
-                        style: const TextStyle(fontSize: 15),
-                      )
-                    : Text(
-                        widget.data["content"],
-                        style: const TextStyle(fontSize: 15),
-                      ),
+                child: Text(
+                  content,
+                  style: const TextStyle(fontSize: 15),
+                ),
               ),
               Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      widget.data["publishedAt"],
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                  )),
-            ])));
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    publishedAt,
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
