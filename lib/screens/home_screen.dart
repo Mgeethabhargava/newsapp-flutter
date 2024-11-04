@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: Text(author, style: const TextStyle(fontSize: 20)),
         centerTitle: true,
+        backgroundColor: Colors.blue, // Set the color here
       ),
       body: articles.isNotEmpty
           ? ListView.builder(
