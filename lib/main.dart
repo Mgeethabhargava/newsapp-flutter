@@ -9,7 +9,7 @@ void main() {
 
 Future<Map<String, dynamic>> getNews() async {
   var url = Uri.parse(
-      "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4bdaa61798242c096fd3de723d9870c");
+      "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=");
   try {
     var response = await http.get(url);
     if (response.statusCode == 200) {
