@@ -1,6 +1,6 @@
-# newsapp
+# News Android Application
 
-It's a News Application using Flutter and NewsAPI .
+Made a App using flutter and NewsAPI  .
 
 ## Getting Started
 
